@@ -6,6 +6,6 @@ import java.util.Set;
 
 public interface Worker extends Remote {
 
-	public abstract Result gatherTasks(Set<Task> s, AggregationResults a) throws RemoteException;
+	public abstract void gatherTasks(Set<Task> s, AggregationResults a) throws RemoteException;
 	
 }
