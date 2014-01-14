@@ -47,6 +47,7 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable 
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
+				this.tasks.clear();
 			}
 		}
 	}
