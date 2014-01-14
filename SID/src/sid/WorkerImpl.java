@@ -13,7 +13,7 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable 
 	private Set<Task> tasks;
 	private AggregationResults agg;
 
-	public WorkerImpl() throws RemoteException {
+	public WorkerImpl(Master m) throws RemoteException {
 		super();
 		this.tasks = new HashSet<Task>();
 		this.agg = null;
@@ -58,10 +58,11 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable 
 		 */
 		WorkerImpl worker;
 		try {
-			worker = new WorkerImpl();
+			Master m = ((Master) Naming.lookup(args[1]));
+			worker = new WorkerImpl(m);
 			Naming.bind("rmi://" + args[0] + "/worker", worker);
 			new Thread(worker).start();
-			((Master) Naming.lookup(args[1])).inscription(worker);
+			m.inscription(worker);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
