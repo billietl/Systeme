@@ -1,5 +1,5 @@
 package sid;
 
-public abstract class Application {
+public interface Application {
 
 }
