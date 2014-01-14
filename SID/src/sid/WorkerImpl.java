@@ -8,6 +8,7 @@ import java.util.Set;
 
 public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable {
 
+	private static final long serialVersionUID = 1L;
 	private Master master;
 	private Set<Task> tasks;
 	private AggregationResults agg;
@@ -60,7 +61,7 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable 
 			worker = new WorkerImpl();
 			Naming.bind("rmi://" + args[0] + "/worker", worker);
 			new Thread(worker).start();
-			((Master) Naming.lookup(args[1])).toString();
+			((Master) Naming.lookup(args[1])).inscription(worker);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
