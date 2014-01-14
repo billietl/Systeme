@@ -1,9 +1,10 @@
 package sid;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
-public interface Worker extends Remote {
+public abstract class Worker implements Remote {
 
-	public Result compute(Task t);
+	public abstract Result compute(Task t) throws RemoteException;
 	
 }
