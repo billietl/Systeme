@@ -17,7 +17,7 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable 
 		super();
 		this.tasks = new HashSet<Task>();
 		this.agg = null;
-		this.master = null;
+		this.master = m;
 	}
 
 	@Override
