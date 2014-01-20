@@ -3,6 +3,7 @@ package sid;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,10 +19,11 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable 
 		this.tasks = new HashSet<Task>();
 		this.agg = null;
 		this.master = m;
+		m.inscription(this);
 	}
 
 	@Override
-	public void gatherTasks(Set<Task> s, AggregationResults a)
+	public void gatherTasks(Collection<Task> s, AggregationResults a)
 			throws RemoteException, TooMuchWorkException {
 		if (!this.tasks.isEmpty()) {
 			throw new TooMuchWorkException();
