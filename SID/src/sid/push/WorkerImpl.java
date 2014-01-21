@@ -1,10 +1,13 @@
-package sid;
+package sid.push;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.HashSet;
+
+import sid.api.AggregationResults;
+import sid.api.Task;
 
 public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable {
 

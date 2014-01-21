@@ -1,8 +1,12 @@
-package sid;
+package sid.push;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Collection;
+
+import sid.api.Result;
+import sid.api.SetOfTasks;
+import sid.api.Task;
 
 public interface Master extends Remote {
 

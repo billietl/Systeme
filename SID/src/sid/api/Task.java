@@ -1,4 +1,4 @@
-package sid;
+package sid.api;
 
 import java.io.Serializable;
 

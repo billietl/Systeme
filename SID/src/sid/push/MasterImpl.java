@@ -1,4 +1,4 @@
-package sid;
+package sid.push;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -6,6 +6,11 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import sid.api.AggregationResults;
+import sid.api.Result;
+import sid.api.SetOfTasks;
+import sid.api.Task;
 
 public class MasterImpl extends UnicastRemoteObject implements Master {
 
