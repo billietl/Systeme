@@ -29,7 +29,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master{
 	public Result doit(SetOfTasks s) throws RemoteException {
 		this.set = s;
 		this.lastTask = this.nbReponse = 0;
-		while (this.nbReponse != this.set.getSize()/this.getChunkSize()) {
+		while (this.nbReponse != this.set.getSize()/CHUNK_SIZE) {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -46,25 +46,16 @@ public class MasterImpl extends UnicastRemoteObject implements Master{
 	}
 	
 	public synchronized Collection<Task> getTasks() throws RemoteException{
-		Collection<Task> col = this.getTasks(this.lastTask, this.lastTask+this.getChunkSize());
-		this.lastTask += this.getChunkSize();
-		return col; 
+		Collection<Task> taskSet = new ArrayList<Task>();
+		for (int i=this.lastTask; i < this.lastTask+CHUNK_SIZE; i++) {
+			taskSet.add(this.set.getTask(i));
+		}
+		this.lastTask += CHUNK_SIZE;
+		return taskSet; 
 	}
 	
 	public AggregationResults getAggregationResult(){
 		return this.aggResults;
-	}
-
-	private int getChunkSize() {
-		return this.set.getSize() / (CHUNK_SIZE);
-	}
-
-	private Collection<Task> getTasks(int i, int j) {
-		Collection<Task> taskSet = new ArrayList<Task>();
-		for (; i < j; i++) {
-			taskSet.add(this.set.getTask(i));
-		}
-		return taskSet;
 	}
 
 	public static void main(String args[]) {
