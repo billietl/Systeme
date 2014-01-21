@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import sid.Master;
+import sid.Worker;
 import sid.api.AggregationResults;
 import sid.api.Result;
 import sid.api.SetOfTasks;

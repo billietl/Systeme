@@ -1,4 +1,4 @@
-package sid.push;
+package sid;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

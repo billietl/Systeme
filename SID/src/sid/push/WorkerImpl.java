@@ -6,6 +6,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.HashSet;
 
+import sid.Master;
+import sid.Worker;
 import sid.api.AggregationResults;
 import sid.api.Task;
 
