@@ -28,13 +28,17 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker {
 			try {
 				col = this.master.getTasks();
 				agg = this.master.getAggregationResult();
+				if(col.isEmpty()){
+					Thread.sleep(100);
+					continue;
+				}
 				for(Task t : col){
 					agg.add(t.execute());
 				}
 				this.master.gatherResult(agg.getFinalResult());
-			} catch (RemoteException e) {
-				e.printStackTrace();
 			}
+			catch (RemoteException e) {e.printStackTrace();} 
+			catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
 
