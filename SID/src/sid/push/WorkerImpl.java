@@ -1,4 +1,4 @@
-package sid;
+package sid.push;
 
 import java.net.InetAddress;
 import java.rmi.Naming;
@@ -6,13 +6,17 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
+
+import sid.Master;
+import sid.Worker;
+import sid.api.AggregationResults;
+import sid.api.Task;
 
 public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable {
 
 	private static final long serialVersionUID = 1L;
 	private Master master;
-	private Set<Task> tasks;
+	private Collection<Task> tasks;
 	private AggregationResults agg;
 
 	public WorkerImpl(Master m) throws RemoteException {
@@ -25,13 +29,9 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable 
 
 	@Override
 	public void gatherTasks(Collection<Task> s, AggregationResults a)
-			throws RemoteException, TooMuchWorkException {
-		if (!this.tasks.isEmpty()) {
-			throw new TooMuchWorkException();
-		} else {
-			this.tasks.addAll(s);
-			this.agg = a;
-		}
+			throws RemoteException {
+		this.tasks.addAll(s);
+		this.agg = a;
 	}
 
 	public void run() {
@@ -58,11 +58,10 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable 
 	public static void main(String args[]) {
 		/**
 		 * args[0] = adresse su serveur RMI
-		 * args[1] = nom du master
 		 */
 		WorkerImpl worker;
 		try {
-			Master m = ((Master) Naming.lookup(args[1]));
+			Master m = ((Master) Naming.lookup("rmi://" + args[0] + "/master"));
 			worker = new WorkerImpl(m);
 			Naming.bind("rmi://" + args[0] + "/worker@" + InetAddress.getLocalHost().getHostName(), worker);
 			new Thread(worker).start();
