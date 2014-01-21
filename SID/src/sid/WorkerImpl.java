@@ -56,11 +56,10 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable 
 	public static void main(String args[]) {
 		/**
 		 * args[0] = adresse su serveur RMI
-		 * args[1] = nom du master
 		 */
 		WorkerImpl worker;
 		try {
-			Master m = ((Master) Naming.lookup(args[1]));
+			Master m = ((Master) Naming.lookup("master"));
 			worker = new WorkerImpl(m);
 			Naming.bind("rmi://" + args[0] + "/worker", worker);
 			new Thread(worker).start();

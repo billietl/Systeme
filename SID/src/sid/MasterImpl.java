@@ -1,5 +1,6 @@
 package sid;
 
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -31,7 +32,14 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 			} catch (TooMuchWorkException e) {
 			}
 		}
-		return null;
+		while(this.lastTask < this.set.getSize()){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		return this.aggResults.getFinalResult();
 	}
 
 	@Override
@@ -61,6 +69,18 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 	@Override
 	public void inscription(Worker r) throws RemoteException {
 		this.workers.add(r);
+	}
+	
+	public static void main(String args[]) {
+		/**
+		 * args[0] = adresse su serveur RMI
+		 */
+		try {
+			MasterImpl master = new MasterImpl();
+			Naming.bind("rmi://" + args[0] + "/master", master);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
