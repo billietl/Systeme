@@ -5,13 +5,12 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable {
 
 	private static final long serialVersionUID = 1L;
 	private Master master;
-	private Set<Task> tasks;
+	private Collection<Task> tasks;
 	private AggregationResults agg;
 
 	public WorkerImpl(Master m) throws RemoteException {
