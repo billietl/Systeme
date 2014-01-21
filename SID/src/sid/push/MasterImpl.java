@@ -32,14 +32,11 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 		this.set = s;
 		this.lastTask = this.nbReponse = 0;
 		for (Worker r : workers) {
-			Collection<Task> taskSet = this.getTasks(lastTask, lastTask+getChunkSize());
-			try {
-				r.gatherTasks(taskSet, this.aggResults);
-				lastTask += getChunkSize();
-			} catch (TooMuchWorkException e) {
-			}
+			Collection<Task> taskSet = this.getTasks(lastTask, lastTask + getChunkSize());
+			r.gatherTasks(taskSet, this.aggResults);
+			lastTask += getChunkSize();
 		}
-		while(this.nbReponse != this.workers.size()){
+		while (this.nbReponse != this.workers.size()) {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -50,18 +47,18 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 	}
 
 	@Override
-	public synchronized void gatherResult(Result r)	throws RemoteException {
+	public synchronized void gatherResult(Result r) throws RemoteException {
 		this.aggResults.add(r);
 		this.nbReponse++;
 	}
-	
+
 	private int getChunkSize() {
-		return this.set.getSize()/this.workers.size();
+		return this.set.getSize() / this.workers.size();
 	}
 
-	private Collection<Task> getTasks(int i, int j){
+	private Collection<Task> getTasks(int i, int j) {
 		Collection<Task> taskSet = new ArrayList<Task>();
-		for(;i<j;i++){
+		for (; i < j; i++) {
 			taskSet.add(this.set.getTask(i));
 		}
 		return taskSet;
@@ -71,7 +68,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 	public void inscription(Worker r) throws RemoteException {
 		this.workers.add(r);
 	}
-	
+
 	public static void main(String args[]) {
 		/**
 		 * args[0] = adresse su serveur RMI

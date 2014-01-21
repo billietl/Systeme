@@ -6,10 +6,9 @@ import java.util.Collection;
 
 import sid.api.AggregationResults;
 import sid.api.Task;
-import sid.push.TooMuchWorkException;
 
 public interface Worker extends Remote {
 
-	public abstract void gatherTasks(Collection<Task> s, AggregationResults a) throws RemoteException, TooMuchWorkException;
+	public abstract void gatherTasks(Collection<Task> s, AggregationResults a) throws RemoteException;
 	
 }

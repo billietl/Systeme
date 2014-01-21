@@ -28,13 +28,9 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable 
 
 	@Override
 	public void gatherTasks(Collection<Task> s, AggregationResults a)
-			throws RemoteException, TooMuchWorkException {
-		if (!this.tasks.isEmpty()) {
-			throw new TooMuchWorkException();
-		} else {
-			this.tasks.addAll(s);
-			this.agg = a;
-		}
+			throws RemoteException {
+		this.tasks.addAll(s);
+		this.agg = a;
 	}
 
 	public void run() {
@@ -64,7 +60,7 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable 
 		 */
 		WorkerImpl worker;
 		try {
-			Master m = ((Master) Naming.lookup("master"));
+			Master m = ((Master) Naming.lookup("rmi://" + args[0] + "/master"));
 			worker = new WorkerImpl(m);
 			Naming.bind("rmi://" + args[0] + "/worker", worker);
 			new Thread(worker).start();
