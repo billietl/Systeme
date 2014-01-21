@@ -20,7 +20,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 	private List<Worker> workers;
 	private AggregationResults aggResults;
 	private SetOfTasks set;
-	private int lastTask, nbReponse;
+	private int nbReponse;
 
 	protected MasterImpl() throws RemoteException {
 		super();
@@ -30,7 +30,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 	@Override
 	public Result doit(SetOfTasks s) throws RemoteException {
 		this.set = s;
-		this.lastTask = this.nbReponse = 0;
+		int lastTask = this.nbReponse = 0;
 		for (Worker r : workers) {
 			Collection<Task> taskSet = this.getTasks(lastTask, lastTask + getChunkSize());
 			r.gatherTasks(taskSet, this.aggResults);
