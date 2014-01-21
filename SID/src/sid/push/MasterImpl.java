@@ -81,4 +81,14 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 		}
 	}
 
+	@Override
+	public Collection<Task> getTasks() throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public AggregationResults getAggregationResult() throws RemoteException {
+		return this.aggResults;
+	}
+
 }

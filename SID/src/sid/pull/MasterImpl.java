@@ -45,7 +45,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master{
 		this.nbReponse++;
 	}
 	
-	public synchronized Collection<Task> getTasks() throws RemoteException{
+	public synchronized Collection<Task> getTasks() throws RemoteException {
 		Collection<Task> taskSet = new ArrayList<Task>();
 		for (int i=this.lastTask; i < this.lastTask+CHUNK_SIZE; i++) {
 			taskSet.add(this.set.getTask(i));
