@@ -20,8 +20,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 	private List<Worker> workers;
 	private AggregationResults aggResults;
 	private SetOfTasks set;
-	private int lastTask;
-	public static final int CHUNK_SIZE_INDICE = 2;
+	private int lastTask, nbReponse;
 
 	protected MasterImpl() throws RemoteException {
 		super();
@@ -31,6 +30,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 	@Override
 	public Result doit(SetOfTasks s) throws RemoteException {
 		this.set = s;
+		this.lastTask = this.nbReponse = 0;
 		for (Worker r : workers) {
 			Collection<Task> taskSet = this.getTasks(lastTask, lastTask+getChunkSize());
 			try {
@@ -39,7 +39,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 			} catch (TooMuchWorkException e) {
 			}
 		}
-		while(this.lastTask < this.set.getSize()){
+		while(this.nbReponse != this.workers.size()){
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -50,21 +50,15 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 	}
 
 	@Override
-	public synchronized Collection<Task> gatherResult(Result r)	throws RemoteException {
+	public synchronized void gatherResult(Result r)	throws RemoteException {
 		this.aggResults.add(r);
-		if (this.lastTask < this.set.getSize()) {
-			return null;
-		} else {
-			Collection<Task> taskSet = this.getTasks(lastTask, lastTask+getChunkSize());
-			lastTask += getChunkSize();
-			return taskSet;
-		}
+		this.nbReponse++;
 	}
 	
-	private int getChunkSize(){
-		return this.set.getSize() / (workers.size() * CHUNK_SIZE_INDICE);
+	private int getChunkSize() {
+		return this.set.getSize()/this.workers.size();
 	}
-	
+
 	private Collection<Task> getTasks(int i, int j){
 		Collection<Task> taskSet = new ArrayList<Task>();
 		for(;i<j;i++){
