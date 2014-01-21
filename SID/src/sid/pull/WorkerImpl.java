@@ -1,5 +1,6 @@
 package sid.pull;
 
+import java.net.InetAddress;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -62,7 +63,7 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker, Runnable{
 		try {
 			Master m = ((Master) Naming.lookup("rmi://" + args[0] + "/master"));
 			worker = new WorkerImpl(m);
-			Naming.bind("rmi://" + args[0] + "/worker", worker);
+			Naming.bind("rmi://" + args[0] + "/worker@" + InetAddress.getLocalHost().getHostName(), worker);
 			new Thread(worker).start();
 			m.inscription(worker);
 		} catch (Exception e) {
