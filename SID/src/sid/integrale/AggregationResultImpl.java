@@ -5,16 +5,24 @@ import sid.api.Result;
 
 public class AggregationResultImpl implements AggregationResults {
 
+	private double acc;
+	private int count;
+	
+	public AggregationResultImpl(){
+		this.acc = 0;
+		this.count = 0;
+	}
+	
 	@Override
 	public void add(Result r) {
-		// TODO Auto-generated method stub
-		
+		ResultImpl result = (ResultImpl) r;
+		this.acc += result.getVal();
+		this.count++;
 	}
 
 	@Override
 	public Result getFinalResult() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ResultImpl((5.0*acc)/this.count);
 	}
 
 }

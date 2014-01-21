@@ -6,22 +6,22 @@ import sid.api.Task;
 
 public class SetOfTasksImpl implements SetOfTasks {
 
+	private static final long serialVersionUID = 1L;
+	protected static final int NB_TIRAGES=10000;
+
 	@Override
 	public Task getTask(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return new TaskImpl(index);
 	}
 
 	@Override
 	public int getSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return NB_TIRAGES;
 	}
 
 	@Override
 	public AggregationResults getAggregationResults() {
-		// TODO Auto-generated method stub
-		return null;
+		return new AggregationResultImpl();
 	}
 
 }
