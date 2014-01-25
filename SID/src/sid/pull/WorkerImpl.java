@@ -41,11 +41,17 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker {
 			catch (InterruptedException e) {e.printStackTrace();}
 		}
 	}
+	
+	public static void usage(){
+		System.out.println("Usage : WorkerImpl <adresse serveur rmi>");
+		System.exit(1);
+	}
 
 	public static void main(String args[]) {
 		/**
 		 * args[0] = adresse su serveur RMI
 		 */
+		if(args.length < 1) usage();
 		try {
 			MasterImpl m = ((MasterImpl) Naming.lookup("rmi://" + args[0] + "/master"));
 			WorkerImpl worker = new WorkerImpl(m);

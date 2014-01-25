@@ -57,11 +57,17 @@ public class MasterImpl extends UnicastRemoteObject implements Master{
 	public AggregationResults getAggregationResult(){
 		return this.aggResults;
 	}
+	
+	public static void usage(){
+		System.out.println("Usage : MasterImpl <adresse serveur rmi>");
+		System.exit(1);
+	}
 
 	public static void main(String args[]) {
 		/**
 		 * args[0] = adresse su serveur RMI
 		 */
+		if(args.length < 1) usage();
 		try {
 			MasterImpl master = new MasterImpl();
 			Naming.bind("rmi://" + args[0] + "/master", master);
