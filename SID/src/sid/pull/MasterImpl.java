@@ -18,7 +18,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master{
 	private static final long serialVersionUID = 1L;
 	private SetOfTasks set;
 	private int lastTask, nbReponse;
-	private static final int CHUNK_SIZE=5;
+	private static final int CHUNK_SIZE=100;
 
 	protected MasterImpl() throws RemoteException {
 		super();
