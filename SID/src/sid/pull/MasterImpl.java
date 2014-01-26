@@ -23,6 +23,9 @@ public class MasterImpl extends UnicastRemoteObject implements Master{
 
 	protected MasterImpl() throws RemoteException {
 		super();
+		this.aggResults = null;
+		this.set = null;
+		this.lastTask = this.nbReponse = 0;
 	}
 
 	@Override
@@ -36,6 +39,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master{
 				e.printStackTrace();
 			}
 		}
+		this.set = null;
 		return this.aggResults.getFinalResult();
 	}
 
@@ -47,6 +51,9 @@ public class MasterImpl extends UnicastRemoteObject implements Master{
 	
 	public synchronized Collection<Task> getTasks() throws RemoteException {
 		Collection<Task> taskSet = new ArrayList<Task>();
+		if(this.set == null){
+			return taskSet;
+		}
 		for (int i=this.lastTask; i < this.lastTask+CHUNK_SIZE || i<this.set.getSize(); i++) {
 			taskSet.add(this.set.getTask(i));
 		}
