@@ -1,7 +1,7 @@
 master=`cat $OAR_FILE_NODES | head -n 1` 
 workers=`cat $OAR_FILE_NODES`
 
-oarsh $master 'CLASSPATH="sid.jar"; rmiregistry &'
+oarsh $master 'export CLASSPATH="sid.jar"; rmiregistry &'
 oarsh $master 'sh master.sh $master'
 
 for host in $workers; do
