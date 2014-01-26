@@ -29,11 +29,11 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker {
 		while (true) {
 			try {
 				col = this.master.getTasks();
-				agg = this.master.getAggregationResult();
 				if (col.isEmpty()) {
 					Thread.sleep(100);
 					continue;
 				}
+				agg = this.master.getAggregationResult();
 				for (Task t : col) {
 					agg.add(t.execute());
 				}

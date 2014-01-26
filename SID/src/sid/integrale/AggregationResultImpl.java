@@ -5,6 +5,7 @@ import sid.api.Result;
 
 public class AggregationResultImpl implements AggregationResults {
 
+	private static final long serialVersionUID = 1L;
 	private double acc;
 	private int count;
 	

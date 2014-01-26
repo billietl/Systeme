@@ -16,14 +16,12 @@ import sid.api.Task;
 public class MasterImpl extends UnicastRemoteObject implements Master{
 
 	private static final long serialVersionUID = 1L;
-	private AggregationResults aggResults;
 	private SetOfTasks set;
 	private int lastTask, nbReponse;
 	private static final int CHUNK_SIZE=5;
 
 	protected MasterImpl() throws RemoteException {
 		super();
-		this.aggResults = null;
 		this.set = null;
 		this.lastTask = this.nbReponse = 0;
 	}
@@ -39,13 +37,14 @@ public class MasterImpl extends UnicastRemoteObject implements Master{
 				e.printStackTrace();
 			}
 		}
+		Result r = this.set.getAggregationResults().getFinalResult();
 		this.set = null;
-		return this.aggResults.getFinalResult();
+		return r;
 	}
 
 	@Override
 	public synchronized void gatherResult(Result r) throws RemoteException {
-		this.aggResults.add(r);
+		this.set.getAggregationResults().add(r);
 		this.nbReponse++;
 	}
 	
@@ -61,8 +60,8 @@ public class MasterImpl extends UnicastRemoteObject implements Master{
 		return taskSet; 
 	}
 	
-	public AggregationResults getAggregationResult(){
-		return this.aggResults;
+	public AggregationResults getAggregationResult() throws RemoteException{
+		return this.set.getAggregationResults();
 	}
 	
 	public static void usage(){
