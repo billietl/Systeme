@@ -1,1 +1,1 @@
-java -cp sid.jar sid.pull.Worker $1 &
+java -cp sid.jar sid.pull.WorkerImpl $1 &
