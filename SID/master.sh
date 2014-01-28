@@ -1,1 +1,1 @@
-java -cp sid.jar sid.pull.MasterImpl $1 &
+java -cp sid.jar sid.pull.MasterImpl &
