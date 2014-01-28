@@ -11,9 +11,9 @@ import sid.api.Task;
 
 public interface Master extends Remote {
 
-	public abstract Result doit(SetOfTasks s) throws RemoteException;
-	public abstract void gatherResult(Result r) throws RemoteException;
-	public abstract void inscription(Worker r) throws RemoteException;
-	public abstract Collection<Task> getTasks() throws RemoteException;
-	public abstract AggregationResults getAggregationResult() throws RemoteException;
+	public Result doit(SetOfTasks s) throws RemoteException;
+	public void gatherResult(Result r) throws RemoteException;
+	public void inscription(Worker r) throws RemoteException;
+	public Collection<Task> getTasks() throws RemoteException;
+	public AggregationResults getAggregationResult() throws RemoteException;
 }

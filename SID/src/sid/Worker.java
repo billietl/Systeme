@@ -9,5 +9,5 @@ import sid.api.Task;
 
 public interface Worker extends Remote {
 
-	public abstract void gatherTasks(Collection<Task> s, AggregationResults a) throws RemoteException;
+	public void gatherTasks(Collection<Task> s, AggregationResults a) throws RemoteException;
 }
