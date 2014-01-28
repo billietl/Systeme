@@ -3,13 +3,13 @@ package sid.integrale;
 import sid.api.AggregationResults;
 import sid.api.Result;
 
-public class AggregationResultImpl implements AggregationResults {
+public class AggregationResultsImpl implements AggregationResults {
 
 	private static final long serialVersionUID = 1L;
 	private double acc;
 	private int count;
 	
-	public AggregationResultImpl(){
+	public AggregationResultsImpl(){
 		this.acc = 0;
 		this.count = 0;
 	}

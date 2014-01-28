@@ -21,7 +21,7 @@ public class SetOfTasksImpl implements SetOfTasks {
 
 	@Override
 	public AggregationResults getAggregationResults() {
-		return new AggregationResultImpl();
+		return new AggregationResultsImpl();
 	}
 
 }

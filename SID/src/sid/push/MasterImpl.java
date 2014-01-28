@@ -13,6 +13,7 @@ import sid.api.AggregationResults;
 import sid.api.Result;
 import sid.api.SetOfTasks;
 import sid.api.Task;
+import sid.api.WorkUnit;
 
 public class MasterImpl extends UnicastRemoteObject implements Master {
 
@@ -82,13 +83,8 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 	}
 
 	@Override
-	public Collection<Task> getTasks() throws RemoteException {
+	public WorkUnit getTasks() throws RemoteException {
 		return null;
-	}
-
-	@Override
-	public AggregationResults getAggregationResult() throws RemoteException {
-		return this.aggResults;
 	}
 
 }
