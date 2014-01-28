@@ -18,6 +18,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 	private SetOfTasks set;
 	private AggregationResults agg;
 	private int lastTask, nbReponse;
+	private final static int CHUNCK_SIZE = 100;
 
 	protected MasterImpl() throws RemoteException {
 		super();
@@ -32,7 +33,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 		this.agg = s.getAggregationResults();
 		this.lastTask = 0;
 		this.nbReponse = 0;
-		while (this.nbReponse < 1) {
+		while (this.nbReponse < this.set.getSize()/CHUNCK_SIZE) {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -57,9 +58,10 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 		if (this.set.getSize() == this.lastTask) {
 			return null;
 		}
-		WorkUnit taskSet = new WorkUnit(this.set, this.lastTask,
-				this.lastTask + this.set.getSize());
-		this.lastTask+=this.set.getSize();
+		int dernier = this.lastTask + CHUNCK_SIZE >= this.set.getSize() ? this.set
+				.getSize() : this.lastTask + CHUNCK_SIZE;
+		WorkUnit taskSet = new WorkUnit(this.set, this.lastTask, dernier);
+		this.lastTask = dernier;
 		return taskSet;
 	}
 

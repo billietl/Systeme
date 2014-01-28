@@ -34,7 +34,6 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker {
 				}
 				agg = col.getWork().getAggregationResults();
 				for (int i = col.getDebut(); i < col.getFin(); i++) {
-					System.out.println(i);
 					agg.add(col.getWork().getTask(i).execute());
 				}
 				this.master.gatherResult(agg.getFinalResult());

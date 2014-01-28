@@ -16,7 +16,7 @@ public class ApplicationImpl implements Application {
 	    Registry registry = LocateRegistry.getRegistry(args[0],1100);
 	    Master m = ((Master) registry.lookup("master"));
 	    ResultImpl r = (ResultImpl) m.doit(new SetOfTasksImpl());
-	    System.out.println("Calcul approximatif de la valeur de pi: "+r.getVal());
+	    System.out.println("Calcul approximatif de la valeur de pi: "+r.getVal()/4);
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
