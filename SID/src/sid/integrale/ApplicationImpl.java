@@ -19,11 +19,10 @@ public class ApplicationImpl implements Application {
 	 */
     	if (args.length < 2)
 			usage();
-		SetOfTasksImpl.setWorkSize(Integer.parseInt(args[1]));
 	try {
 	    Registry registry = LocateRegistry.getRegistry(args[0],1100);
 	    Master m = ((Master) registry.lookup("master"));
-	    ResultImpl r = (ResultImpl) m.doit(new SetOfTasksImpl());
+	    ResultImpl r = (ResultImpl) m.doit(new SetOfTasksImpl(Integer.parseInt(args[1])));
 	    System.out.println("Calcul d'integrale de f(x,y)=cos(y*y) sur l'interval [0,5]: "+r.getVal());
 	} catch (Exception e) {
 	    e.printStackTrace();

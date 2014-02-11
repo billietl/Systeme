@@ -7,7 +7,12 @@ import sid.api.Task;
 public class SetOfTasksImpl implements SetOfTasks {
 
 	private static final long serialVersionUID = 1L;
-	protected static int NB_TIRAGES=-1;
+	
+	public int NB_TIRAGES;
+	
+	public SetOfTasksImpl(int taille){
+		this.NB_TIRAGES = taille;
+	}
 
 	@Override
 	public Task getTask(int index) {
@@ -22,11 +27,6 @@ public class SetOfTasksImpl implements SetOfTasks {
 	@Override
 	public AggregationResults getAggregationResults() {
 		return new AggregationResultsImpl();
-	}
-	
-	public static void setWorkSize(int size){
-		if(NB_TIRAGES == -1)
-			NB_TIRAGES = size;
 	}
 
 }
