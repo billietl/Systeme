@@ -1,10 +1,28 @@
-master=`cat $OAR_FILE_NODES | head -n 1` 
-workers=`cat $OAR_FILE_NODES`
+#!/bin/bash
 
-oarsh $master 'sh master.sh $master'
+usage(){
+    echo $0 "<work size> <chunk size>"
+    exit 1
+}
+if [ -z $1 ]
+then
+    usage
+fi
+if [ -z $2 ]
+then
+    usage
+fi
+
+let worker_numbers="`cat $OAR_FILE_NODES | wc -l`-1"
+master=`cat $OAR_FILE_NODES | head -n 1` 
+workers=`cat $OAR_FILE_NODES | tail -n $worker_number`
+work_size=$1
+chunk_size=$2
+
+oarsh $master 'sh master.sh $chunk_size'
 
 for host in $workers; do
     oarsh $host 'sh worker.sh $master'
 done
 
-java -cp sid.jar sid.integrale.ApplicationImpl $1
+time java -cp sid.jar sid.integrale.ApplicationImpl $master $work_size

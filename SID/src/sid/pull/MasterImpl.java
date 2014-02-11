@@ -18,7 +18,7 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 	private SetOfTasks set;
 	private AggregationResults agg;
 	private int lastTask, nbReponse;
-	private final static int CHUNCK_SIZE = 100;
+	private static int CHUNCK_SIZE;
 
 	protected MasterImpl() throws RemoteException {
 		super();
@@ -65,7 +65,15 @@ public class MasterImpl extends UnicastRemoteObject implements Master {
 		return taskSet;
 	}
 
+	public static void usage() {
+		System.out.println("Usage : MasterImpl <taille des taches>");
+		System.exit(1);
+	}
+
 	public static void main(String args[]) {
+		if (args.length < 1)
+			usage();
+		CHUNCK_SIZE = Integer.parseInt(args[0]);
 		try {
 			Registry registry = LocateRegistry.createRegistry(1100);
 			MasterImpl master = new MasterImpl();
