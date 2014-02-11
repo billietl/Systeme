@@ -26,3 +26,6 @@ for host in $workers; do
 done
 
 time java -cp sid.jar sid.integrale.ApplicationImpl $master $work_size
+echo "nombre de noeuds " $worker_number
+echo "taille du travail " $work_size
+echo "taille des morceaux " $chunk_size
