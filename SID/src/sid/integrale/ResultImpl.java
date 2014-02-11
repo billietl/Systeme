@@ -5,9 +5,9 @@ import sid.api.Result;
 public class ResultImpl implements Result {
 
 	private static final long serialVersionUID = 1L;
-	private Double value;
+	private double value;
 	
-	public ResultImpl(Double val){
+	public ResultImpl(double val){
 		this.value = val;
 	}
 	
