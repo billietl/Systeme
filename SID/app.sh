@@ -28,7 +28,7 @@ sleep 1
 
 echo "lancement des esclaves..."
 for host in $workers; do
-    oarsh $host sh worker.sh $master
+    oarsh $host "sh worker.sh $master" &
 done
 sleep 1
 
