@@ -1,0 +1,40 @@
+set key box outside center
+set title 'speed_up = f(nb_workers, chunk_size)'
+
+set xlabel 'nombre de workers'
+
+set ylabel 'taille des chunks'
+set logscale y
+
+set zlabel 'speed up'
+
+set grid xtics ytics ztics
+# set hidden3d
+set pm3d at b
+
+set term png
+
+set output "travail_100.png"
+splot "travail_100.csv" using 1:2:3 with linespoint title 'travail de 100'
+
+set output "travail_1000.png"
+splot "travail_1000.csv" using 1:2:3 with linespoint title 'travail de 1000'
+
+set output "travail_10000.png"
+splot "travail_10000.csv" using 1:2:3 with linespoint title 'travail de 10000'
+
+set output "travail_100000.png"
+splot "travail_100000.csv" using 1:2:3 with linespoint title 'travail de 100000'
+
+set output "travail_1000000.png"
+splot "travail_1000000.csv" using 1:2:3 with linespoint title 'travail de 1000000'
+
+set output "travail_10000000.png"
+splot "travail_10000000.csv" using 1:2:3 with linespoint title 'travail de 10000000'
+
+set output "travail_100000000.png"
+splot "travail_100000000.csv" using 1:2:3 with linespoint title 'travail de 100000000'
+
+set output "travail_1000000000.png"
+splot "travail_1000000000.csv" using 1:2:3 with linespoint title 'travail de 1000000000'
+
