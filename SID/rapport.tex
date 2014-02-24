@@ -39,6 +39,32 @@ Nous avons influ\'es sur 3 param\`etres influants sur la performance : Le nombre
 
 \section{Architecture logicielle}
 L'architecture logicielle utilis\'ee est un simple ma\^itre/esclave en mode pull : les esclaves r\'eclament le travail au ma\^itre.
+En plus de ces entit\'es, 5 interfaces sont utilis\'es pour faire transiter les t\^aches et les r\'esultats :
+
+\begin{itemize}
+
+\item \textbf{SetOfTasks}\\
+Le \verb+SetOfTasks+ permet d'obtenir 3 informations sur le travail total :
+sa taille (\textbf{getSize()}),
+les t\^aches \`a effectuer (\textbf{getTask(int)}) et
+la mani\`ere d'aggr\'eger les r\'esultats (\textbf{getAggregationResults()}).
+
+\item \textbf{Task}\\
+La \verb+Task+ est l'objet qui effectuera le calcul \'el\'ementaire.
+Sa seule m\'ethode est \textbf{execute()}, qui produit un Result. 
+
+\item \textbf{Result}\\
+Le \verb+Result+ pouvant prendre diff\'erentes formes, on ne peut pas vraiment d\'efinir d'interface universelle.
+Libre \`a l'utilisateur d'impl\'ementer ses m\'ethodes pour utiliser cette interface.
+
+\item \textbf{AggregationResults}\\
+L'\verb+AggregationResults+ permet d'aggr\'eger les \verb+Result+s (\textbf{add(Result)}) et de calculer le r\'esultat final (\textbf{getFinalResult()}).
+
+\item \textbf{WorkUnit}\\
+Le \verb+WorkUnit+ permet d'assigner un ensemble de t\^aches \`a un esclave.
+Il contient le \verb+SetOfTasks+ ainsi que le d\'ebut et la fin du travail \`a effectuer.
+
+\end{itemize}
 
 \section{R\'esultats relev\'es}
 \includegraphics[scale=0.5]{travail_100.png}
