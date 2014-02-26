@@ -15,26 +15,26 @@ set pm3d at b
 set term png
 
 set output "travail_100.png"
-splot "travail_100.csv" using 1:2:3 with linespoint title 'travail de 100'
+splot "travail_100.csv" using 1:2:3 with linespoint title 'travail de 10^2'
 
 set output "travail_1000.png"
-splot "travail_1000.csv" using 1:2:3 with linespoint title 'travail de 1000'
+splot "travail_1000.csv" using 1:2:3 with linespoint title 'travail de 10^3'
 
 set output "travail_10000.png"
-splot "travail_10000.csv" using 1:2:3 with linespoint title 'travail de 10000'
+splot "travail_10000.csv" using 1:2:3 with linespoint title 'travail de 10^4'
 
 set output "travail_100000.png"
-splot "travail_100000.csv" using 1:2:3 with linespoint title 'travail de 100000'
+splot "travail_100000.csv" using 1:2:3 with linespoint title 'travail de 10^5'
 
 set output "travail_1000000.png"
-splot "travail_1000000.csv" using 1:2:3 with linespoint title 'travail de 1000000'
+splot "travail_1000000.csv" using 1:2:3 with linespoint title 'travail de 10^6'
 
 set output "travail_10000000.png"
-splot "travail_10000000.csv" using 1:2:3 with linespoint title 'travail de 10000000'
+splot "travail_10000000.csv" using 1:2:3 with linespoint title 'travail de 10^7'
 
 set output "travail_100000000.png"
-splot "travail_100000000.csv" using 1:2:3 with linespoint title 'travail de 100000000'
+splot "travail_100000000.csv" using 1:2:3 with linespoint title 'travail de 10^8'
 
 set output "travail_1000000000.png"
-splot "travail_1000000000.csv" using 1:2:3 with linespoint title 'travail de 1000000000'
+splot "travail_1000000000.csv" using 1:2:3 with linespoint title 'travail de 10^9'
 
