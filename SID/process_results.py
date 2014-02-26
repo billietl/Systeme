@@ -5,6 +5,8 @@ speed = dict()
 
 for l in input:
     # minage des donnees
+    if l == '"nombre d\'esclaves" "taille des chunks" "temps de travail" "taille du travail"\n':
+        continue
     splitted = l.split(" ")
     nb_noeuds = int(splitted[0])
     chunk_size = int(splitted[1])
